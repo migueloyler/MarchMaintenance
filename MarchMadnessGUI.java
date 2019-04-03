@@ -197,10 +197,14 @@ public class MarchMadnessGUI extends Application {
      */
     private void clear(){
       
+      if (bracketPane.clear() == 1) {
+          //bracketPane.clear();
+          bracketPane=new BracketPane(selectedBracket);
+          displayPane(bracketPane);
+      } else {
+          reset();
+      }
       
-      bracketPane.clear();
-      bracketPane=new BracketPane(selectedBracket);
-      displayPane(bracketPane);
         
     }
     
@@ -358,55 +362,6 @@ public class MarchMadnessGUI extends Application {
         
           
             
-           private GridPane createLogin(){
-        
-        
-        /*
-        LoginPane
-        Sergio and Joao
-         */
-
-        GridPane loginPane = new GridPane();
-        loginPane.setAlignment(Pos.CENTER);
-        loginPane.setHgap(10);
-        loginPane.setVgap(10);
-        loginPane.setPadding(new Insets(5, 5, 5, 5));
-
-        Text welcomeMessage = new Text("March Madness Login Welcome");
-        loginPane.add(welcomeMessage, 0, 0, 2, 1);
-
-        Label userName = new Label("User Name: ");
-        loginPane.add(userName, 0, 1);
-
-        TextField enterUser = new TextField();
-        loginPane.add(enterUser, 1, 1);
-
-        Label password = new Label("Password: ");
-        loginPane.add(password, 0, 2);
-
-        PasswordField passwordField = new PasswordField();
-        loginPane.add(passwordField, 1, 2);
-
-        Button signButton = new Button("Sign in");
-        loginPane.add(signButton, 1, 4);
-        signButton.setDefaultButton(true);//added by matt 5/7, lets you use sign in button by pressing enter
-
-        Label message = new Label();
-        loginPane.add(message, 1, 5);
-
-        signButton.setOnAction(event -> {
-
-            // the name user enter
-            String name = enterUser.getText();
-            // the password user enter
-            String playerPass = passwordField.getText();
-
-        
-          
-            /*
-             *Firas Fares
-             *I update my code so we are able to ask if the user want to create an account or he enter his usr or pass wrong
-             */
             if (playerMap.get(name) != null) {
                 //check password of user
                  
@@ -423,19 +378,8 @@ public class MarchMadnessGUI extends Application {
                 }
 
             } else {
-                Alert alert = new Alert(AlertType.CONFIRMATION);
-                alert.setHeaderText(null);
-                alert.setContentText("are you sure you want to create another account?");
-
-                ButtonType CreateAccount = new ButtonType("Create Account");
-                ButtonType CancelButton = new ButtonType("Cancel",ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(CreateAccount,CancelButton);
-
-                Optional<ButtonType> result = alert.showAndWait();
-				
                 //check for empty fields
-                if(result.get() == CreateAccount){
+                if(!name.equals("")&&!playerPass.equals("")){
                     //create new bracket
                     Bracket tmpPlayerBracket = new Bracket(startingBracket, name);
                     playerBrackets.add(tmpPlayerBracket);
@@ -444,11 +388,7 @@ public class MarchMadnessGUI extends Application {
                     playerMap.put(name, tmpPlayerBracket);
                     selectedBracket = tmpPlayerBracket;
                     //alert user that an account has been created
-                    infoAlert("A new user with the Username \""  + name + "\" has been created.");
-                    chooseBracket();
-                }
-                else{
-                    infoAlert("Invalid User name or password .");
+                    infoAlert("No user with the Username \""  + name + "\" exists. A new account has been created.");
                     chooseBracket();
                 }
             }
