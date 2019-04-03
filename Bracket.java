@@ -1,4 +1,5 @@
 
+
 import java.util.ArrayList;
 import java.io.Serializable; 
 
@@ -100,10 +101,10 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
             int child1 = 2 * root + 1;
             int child2 = 2 * root + 2;
 
-            if (child1 < 64) {//child is above round 1
+            if (child1 < 63) {//child is above round 1
                 resetSubtree(child1);
             }
-            if (child2 < 64) {
+            if (child2 < 63) {
                 resetSubtree(child2);
             }
             bracket.set(root, "");
@@ -260,4 +261,5 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
         return teamScores[index];
     }
 }
+
 
