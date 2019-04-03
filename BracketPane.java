@@ -78,9 +78,13 @@ public class BracketPane extends BorderPane {
                 }
         }
         
-        
-        public void clear(){
-            clearSubtree(displayedSubtree);
+        //returns 1 when clear a subtree, return 0 if we are on full bracket
+        public int clear(){
+            if (displayedSubtree != 7) {
+                clearSubtree(displayedSubtree);
+                return 1;
+            }
+            return 0;
         }
 
         /**
@@ -206,6 +210,7 @@ public class BracketPane extends BorderPane {
                 this.setCenter(buttonGrid);
 
                 for (StackPane t : buttons) {
+                        
                         t.setOnMouseEntered(mouseEvent -> {
                                 t.setStyle("-fx-background-color: lightblue;");
                                 t.setEffect(new InnerShadow(10, Color.LIGHTCYAN));
@@ -218,13 +223,14 @@ public class BracketPane extends BorderPane {
                                 setCenter(null);
                                 /**
                                  * @update Grant & Tyler 
-                                 * 			panes are added as ScrollPanes to retain center alignment when moving through full-view and region-view
+                                 * panes are added as ScrollPanes to retain center alignment when moving through full-view and region-view
                                  */
                                 center.add(new ScrollPane(panes.get(t)), 0, 0);
                                 center.setAlignment(Pos.CENTER);
                                 setCenter(center);
                                 //Grant 5/7 this is for clearing the tree it kind of works 
                                 displayedSubtree=buttons.indexOf(t)==7?0:buttons.indexOf(t)+3;
+                                //displayedSubtree=buttons.indexOf(t);
                         });
                 }
 
