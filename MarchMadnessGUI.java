@@ -509,19 +509,41 @@ public class MarchMadnessGUI extends Application {
      * @param filename of the seralized bracket file
      * @return deserialized bracket 
      */
-    private ArrayList<Bracket> loadBrackets()
-    {   
-        ArrayList<Bracket> list=new ArrayList<Bracket>();
-        File dir = new File(".");
-        for (final File fileEntry : dir.listFiles()){
-            String fileName = fileEntry.getName();
-            String extension = fileName.substring(fileName.lastIndexOf(".")+1);
-       
-            if (extension.equals("ser")){
-                list.add(deseralizeBracket(fileName));
-            }
-        }
-        return list;
-    }
+      private ArrayList<Bracket> loadBrackets()
+      {
+          ArrayList<Bracket> list=new ArrayList<Bracket>();
+          File dir = new File(".");
+          int plrCount = 0;
+
+          for (final File fileEntry : dir.listFiles()){
+              String fileName = fileEntry.getName();
+              String extension = fileName.substring(fileName.lastIndexOf(".")+1);
+
+              if (extension.equals("ser")){
+                  plrCount++;
+              }
+          }
+
+          for (final File fileEntry : dir.listFiles()){
+              String fileName = fileEntry.getName();
+              System.out.println(fileName);
+              String extension = fileName.substring(fileName.lastIndexOf(".")+1);
+              String[] preSets = {"JamesCPU.ser", "MarkCPU.ser", "CalebCPU.ser", "TracyCPU.ser"};
+
+              int CPU_drop = plrCount - 4;
+              System.out.println(CPU_drop);
+              ArrayList<String> drop = new ArrayList<>();
+              for(int i = 0; i < CPU_drop; i++){
+                  drop.add(preSets[i]);
+              }
+
+              if (extension.equals("ser") && !(drop.contains(fileName))){
+                  System.out.println((drop.contains(fileName)));
+                  list.add(deseralizeBracket(fileName));
+              }
+          }
+          return list;
+      }
+
        
 }
