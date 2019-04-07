@@ -106,7 +106,7 @@ public class MarchMadnessGUI extends Application {
         login();
         
         setActions();
-        root.setTop(toolBar);   
+        //root.setTop(toolBar);   
         root.setBottom(btoolBar);
         Scene scene = new Scene(root);
         primaryStage.setMaximized(true);
@@ -226,6 +226,7 @@ public class MarchMadnessGUI extends Application {
            bracketPane.setDisable(true);
            simulate.setDisable(false);
            login.setDisable(false);
+           root.setTop(toolBar);
            //save the bracket along with account info
            seralizeBracket(selectedBracket);
             
@@ -261,7 +262,7 @@ public class MarchMadnessGUI extends Application {
     private void CreateToolBars(){
         toolBar  = new ToolBar();
         btoolBar  = new ToolBar();
-        login=new Button("Login");
+        login=new Button("Log Out");
         simulate=new Button("Simulate");
         scoreBoardButton=new Button("ScoreBoard");
         viewBracketButton= new Button("View Simulated Bracket");

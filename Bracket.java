@@ -177,7 +177,10 @@ public class Bracket implements Serializable //Hillary: This bracket class is to
     public boolean isComplete()
     {
         for(String team: bracket){
-            if(team.equals("")){ return false; }
+            if(team.equals("")){ 
+                //make red
+                return false; 
+            }
         }
         return true;
     }

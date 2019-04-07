@@ -287,7 +287,17 @@ public class BracketPane extends BorderPane {
          * @return True if completed, false otherwise.
          */
         public boolean isComplete() {
-                return currentBracket.isComplete();
+            if(currentBracket.isComplete()){
+                return true;
+            }else{
+                for(BracketNode n : nodes){
+                    if(n.getName()==""){
+                        n.makeRed();
+                    }
+                }
+                return false;
+            }
+               
         }
 
         /**
@@ -468,8 +478,13 @@ public class BracketPane extends BorderPane {
                  * @param teamName The name to assign to the node.
                  */
                 public void setName(String teamName) {
+                        rect.setFill(Color.TRANSPARENT);
                         this.teamName = teamName;
                         name.setText(teamName);
+                }
+                
+                public void makeRed(){
+                    rect.setFill(Color.RED);
                 }
         }
 }
