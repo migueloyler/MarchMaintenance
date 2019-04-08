@@ -471,83 +471,84 @@ public class MarchMadnessGUI extends Application {
     private void seralizeBracket(Bracket B){
         FileOutputStream outStream = null;
         ObjectOutputStream out = null;
-    try 
-    {
-      outStream = new FileOutputStream(B.getPlayerName()+".ser");
-      out = new ObjectOutputStream(outStream);
-      out.writeObject(B);
-      out.close();
-    } 
-    catch(IOException e)
-    {
-      // Grant osborn 5/6 hopefully this never happens 
-      showError(new Exception("Error saving bracket \n"+e.getMessage(),e),false);
-    }
+        try
+        {
+            outStream = new FileOutputStream("bin/" + B.getPlayerName()+".ser");
+            out = new ObjectOutputStream(outStream);
+            out.writeObject(B);
+            out.close();
+        }
+        catch(IOException e)
+        {
+            // Grant osborn 5/6 hopefully this never happens
+            showError(new Exception("Error saving bracket \n"+e.getMessage(),e),false);
+        }
     }
     /**
      * Tayon Watson 5/5
      * deseralizedBracket
      * @param filename of the seralized bracket file
-     * @return deserialized bracket 
+     * @return deserialized bracket
      */
     private Bracket deseralizeBracket(String filename){
         Bracket bracket = null;
         FileInputStream inStream = null;
         ObjectInputStream in = null;
-    try 
-    {
-        inStream = new FileInputStream(filename);
-        in = new ObjectInputStream(inStream);
-        bracket = (Bracket) in.readObject();
-        in.close();
-    }catch (IOException | ClassNotFoundException e) {
-      // Grant osborn 5/6 hopefully this never happens either
-      showError(new Exception("Error loading bracket \n"+e.getMessage(),e),false);
-    } 
-    return bracket;
+        try
+        {
+            inStream = new FileInputStream("bin/"+ filename);
+            in = new ObjectInputStream(inStream);
+            bracket = (Bracket) in.readObject();
+            in.close();
+        }catch (IOException | ClassNotFoundException e) {
+            // Grant osborn 5/6 hopefully this never happens either
+            showError(new Exception("Error loading bracket \n"+e.getMessage(),e),false);
+        }
+        return bracket;
     }
-    
-      /**
+
+    /**
      * Tayon Watson 5/5
      * deseralizedBracket
      * @param filename of the seralized bracket file
-     * @return deserialized bracket 
+     * @return deserialized bracket
      */
-      private ArrayList<Bracket> loadBrackets() 
-      {
-          ArrayList<Bracket> list=new ArrayList<Bracket>();
-          File dir = new File(".");
-          int plrCount = 0;
+    private ArrayList<Bracket> loadBrackets()
+    {
 
-          for (final File fileEntry : dir.listFiles()){
-              String fileName = fileEntry.getName();
-              String extension = fileName.substring(fileName.lastIndexOf(".")+1);
+        ArrayList<Bracket> list=new ArrayList<Bracket>();
+        File dir = new File("bin/");
+        int plrCount = 0;
 
-              if (extension.equals("ser")){
-                  plrCount++;
-              }
-          }
+        for (final File fileEntry : dir.listFiles()){
+            String fileName = fileEntry.getName();
+            String extension = fileName.substring(fileName.lastIndexOf(".")+1);
 
-          for (final File fileEntry : dir.listFiles()){
-              String fileName = fileEntry.getName();
-              System.out.println(fileName);
-              String extension = fileName.substring(fileName.lastIndexOf(".")+1);
-              String[] preSets = {"JamesCPU.ser", "MarkCPU.ser", "CalebCPU.ser", "TracyCPU.ser"};
+            if (extension.equals("ser")){
+                plrCount++;
+            }
+        }
 
-              int CPU_drop = plrCount - 4;
-              System.out.println(CPU_drop);
-              ArrayList<String> drop = new ArrayList<>();
-              for(int i = 0; i < CPU_drop; i++){
-                  drop.add(preSets[i]);
-              }
+        for (final File fileEntry : dir.listFiles()){
+            String fileName = fileEntry.getName();
+            System.out.println(fileName);
+            String extension = fileName.substring(fileName.lastIndexOf(".")+1);
+            String[] preSets = {"JamesCPU.ser", "MarkCPU.ser", "CalebCPU.ser", "TracyCPU.ser"};
 
-              if (extension.equals("ser") && !(drop.contains(fileName))){
-                  System.out.println((drop.contains(fileName)));
-                  list.add(deseralizeBracket(fileName));
-              }
-          }
-          return list;
-      }
+            int CPU_drop = plrCount - 4;
+            System.out.println(CPU_drop);
+            ArrayList<String> drop = new ArrayList<>();
+            for(int i = 0; i < CPU_drop; i++){
+                drop.add(preSets[i]);
+            }
 
-       
+            if (extension.equals("ser") && !(drop.contains(fileName))){
+                System.out.println((drop.contains(fileName)));
+                list.add(deseralizeBracket(fileName));
+            }
+        }
+        return list;
+    }
+
+
 }
