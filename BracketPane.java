@@ -19,6 +19,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -464,6 +465,7 @@ public class BracketPane extends BorderPane {
                         name = new Label(teamName);
                         // setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
                         name.setTranslateX(5);
+                        name.setFont(new Font("Verdana", 11));
                         getChildren().addAll(name, rect);
                 }
 
