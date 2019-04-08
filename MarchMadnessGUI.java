@@ -106,7 +106,7 @@ public class MarchMadnessGUI extends Application {
         login();
         
         setActions();
-        root.setTop(toolBar);   
+        //root.setTop(toolBar);   
         root.setBottom(btoolBar);
         Scene scene = new Scene(root);
         primaryStage.setMaximized(true);
@@ -226,6 +226,7 @@ public class MarchMadnessGUI extends Application {
            bracketPane.setDisable(true);
            simulate.setDisable(false);
            login.setDisable(false);
+           root.setTop(toolBar);
            //save the bracket along with account info
            seralizeBracket(selectedBracket);
             
@@ -261,7 +262,7 @@ public class MarchMadnessGUI extends Application {
     private void CreateToolBars(){
         toolBar  = new ToolBar();
         btoolBar  = new ToolBar();
-        login=new Button("Login");
+        login=new Button("Log Out");
         simulate=new Button("Simulate");
         scoreBoardButton=new Button("ScoreBoard");
         viewBracketButton= new Button("View Simulated Bracket");
@@ -373,6 +374,9 @@ public class MarchMadnessGUI extends Application {
                     // load bracket
                     selectedBracket=playerMap.get(name);
                     chooseBracket();
+                    if(selectedBracket.isComplete()){
+                        finalizeBracket();
+                    }
                 }else{
                    infoAlert("The password you have entered is incorrect!");
                 }
@@ -509,7 +513,7 @@ public class MarchMadnessGUI extends Application {
      * @param filename of the seralized bracket file
      * @return deserialized bracket 
      */
-      private ArrayList<Bracket> loadBrackets()
+      private ArrayList<Bracket> loadBrackets() 
       {
           ArrayList<Bracket> list=new ArrayList<Bracket>();
           File dir = new File(".");
