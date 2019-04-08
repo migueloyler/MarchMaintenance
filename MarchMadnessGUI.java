@@ -378,8 +378,21 @@ public class MarchMadnessGUI extends Application {
                 }
 
             } else {
+                //Firas Fares
+                //I update my code so we are able to ask user if he want to create a user name or he enter his usr or pass wrong
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("are you sure you want to create another account?");
+
+                ButtonType CreateAccount = new ButtonType("Create Account");
+                ButtonType CancelButton = new ButtonType("Cancel",ButtonData.CANCEL_CLOSE);
+
+                alert.getButtonTypes().setAll(CreateAccount,CancelButton);
+
+                Optional<ButtonType> result = alert.showAndWait();
+				
                 //check for empty fields
-                if(!name.equals("")&&!playerPass.equals("")){
+                if(result.get() == CreateAccount){
                     //create new bracket
                     Bracket tmpPlayerBracket = new Bracket(startingBracket, name);
                     playerBrackets.add(tmpPlayerBracket);
