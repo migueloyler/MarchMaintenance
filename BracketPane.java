@@ -314,6 +314,17 @@ public class BracketPane extends BorderPane {
         public void setFinalized(boolean isFinalized) {
                 finalized = isFinalized && currentBracket.isComplete();
         }
+        public ArrayList<BracketNode> getNodes(){
+            return nodes;
+        }
+        
+        public void comparePlayer(BracketPane b){
+            for(int i=0;i<nodes.size();i++){
+                if(!nodes.get(i).getName().equals(b.getNodes().get(i).getName())){
+                    nodes.get(i).makeRed();
+                }
+            }
+        }
 
         /**
          * Returns a custom "Button" with specified

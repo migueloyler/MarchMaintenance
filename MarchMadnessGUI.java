@@ -132,7 +132,7 @@ public class MarchMadnessGUI extends Application {
      */
     private void simulate(){
         //cant login and restart prog after simulate
-        login.setDisable(true);
+        //login.setDisable(true);
         simulate.setDisable(true);
         
        scoreBoardButton.setDisable(false);
@@ -172,9 +172,12 @@ public class MarchMadnessGUI extends Application {
       * 
       */
     private void viewBracket(){
-       selectedBracket=simResultBracket;
-       bracketPane=new BracketPane(selectedBracket);
+       bracketPane=new BracketPane(simResultBracket);
+       BracketPane b = new BracketPane(selectedBracket);
+       bracketPane.comparePlayer(b);
+       
        GridPane full = bracketPane.getFullPane();
+       
        full.setAlignment(Pos.CENTER);
        full.setDisable(true);
        displayPane(new ScrollPane(full)); 
