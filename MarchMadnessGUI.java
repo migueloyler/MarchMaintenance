@@ -117,7 +117,7 @@ public class MarchMadnessGUI extends Application {
         root.setBottom(btoolBar);
         Scene scene = new Scene(root);
         primaryStage.setMaximized(true);
-        
+        //Instructions button - Basil
         instructionButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
              public void handle(ActionEvent event) {
