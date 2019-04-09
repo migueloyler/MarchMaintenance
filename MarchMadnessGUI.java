@@ -33,6 +33,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonBar.ButtonData;
 import java.util.Optional;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.stage.Modality;
 
 /**
  *  MarchMadnessGUI
@@ -56,6 +60,7 @@ public class MarchMadnessGUI extends Application {
     private Button clearButton;
     private Button resetButton;
     private Button finalizeButton;
+    private Button instructionButton;
     
     //allows you to navigate back to division selection screen
     private Button back;
@@ -112,6 +117,44 @@ public class MarchMadnessGUI extends Application {
         root.setBottom(btoolBar);
         Scene scene = new Scene(root);
         primaryStage.setMaximized(true);
+        
+        instructionButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+             public void handle(ActionEvent event) {
+                 final Stage instructionPage = new Stage(); //creates a new stage for the popup
+                 instructionPage.initModality(Modality.WINDOW_MODAL);  //Makes pop up a modal dialogue box
+
+                 Button exitButton = new Button("Exit"); //close button is created inside of instructionButton dialogue
+                 exitButton.setOnAction(new EventHandler<ActionEvent>(){ //sets what exitButton button does
+
+                     @Override
+                     public void handle(ActionEvent f) {
+                         instructionPage.close(); //closes dialogue
+                     }
+            });
+                 String instructionText = "HELLO! WELCOME TO THE MARCH MADNESS BRACKET SIMULATOR!\n\n"
+                         + "To begin please select either fill out the four divisions, or do it all at once using the full bracket\n\n"
+                         +"The \"Choose Division\" button will allow you to navigate between the various divisions, or choose the full bracket\n\n"
+                         + "To fill out the bracket just click on the team you wish to advance\n\n"
+                         + "A team's statistics can be seen by right clicking on the team's name on the bracket \n\n"
+                         + "WARNING: if you change a team's advancement on a previous round after filling everything out, all future rounds will be affected as well\n\n"
+                         + "If you wish to clear the entire bracket just click the \"Reset\" button on the bottom\n\n"
+                         + "Once the entire bracket has been filled out, the \"Finalize\" button can be clicked, which will lock the users choices\n\n"
+                         + "The top tool bar will also become available to the the user, which will allow the user to either logout, or simulate the game via the \"Simulate\" button\n\n"
+                         + "Please be aware that once a game has been simulated no more players may create a bracket for that game\n\n"
+                         + "Players can see their scores by clicking on the \"ScoreBoard\" button or see the final bracket using \"View Simulated Bracket\"\n\n";
+                 
+                 Scene Instructions = new Scene(VBoxBuilder.create()
+                         .children(new Text(instructionText), exitButton) //instructionsText string and exitButton button are placed in the scene
+                         .alignment(Pos.BOTTOM_CENTER) //Placement of "exitButton" button
+                         .padding(new Insets(50)) //essentially sets size of window
+                         .build());
+                 
+                 instructionPage.setTitle("Instructions"); //names the stage
+                 instructionPage.setScene(Instructions); //sets the scene within the stage
+                 instructionPage.show();
+             }
+         });
 
         primaryStage.setTitle("March Madness Bracket Simulator");
         primaryStage.setScene(scene);
@@ -271,12 +314,14 @@ public class MarchMadnessGUI extends Application {
         clearButton=new Button("Clear");
         resetButton=new Button("Reset");
         finalizeButton=new Button("Finalize");
+        instructionButton = new Button("Instructions");
         toolBar.getItems().addAll(
                 createSpacer(),
                 login,
                 simulate,
                 scoreBoardButton,
                 viewBracketButton,
+                instructionButton,
                 createSpacer()
         );
         btoolBar.getItems().addAll(
@@ -285,6 +330,7 @@ public class MarchMadnessGUI extends Application {
                 resetButton,
                 finalizeButton,
                 back=new Button("Choose Division"),
+                instructionButton,
                 createSpacer()
         );
     }
