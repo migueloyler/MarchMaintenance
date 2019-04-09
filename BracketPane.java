@@ -465,7 +465,7 @@ public class BracketPane extends BorderPane {
                         name = new Label(teamName);
                         // setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
                         name.setTranslateX(5);
-                        name.setFont(new Font("Verdana", 11));
+                        name.setFont(new Font("Verdana", 10));
                         getChildren().addAll(name, rect);
                 }
 
